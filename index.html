@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2024 by anonymous (http://jsbin.com/gimumeviqu/1/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style type="text/css">
+  th, td{
+    border: 1px solid black;
+    text-align: center;
+    padding: 3px 10px;
+  }
+  .insert{
+    padding: 8px 10px;
+  }
+  </style>
+</head>
+<body>
+<div id="input">
+ <div class="insert">Precio impresión: <input type="text" name="print" id="print" placeholder="5.47" /> </div>
+ <div class="insert">Gastos envío: <input type="text" name="fees" id="fees" placeholder="7.53" /> Fijo: <input type="checkbox" id="fixed" /></div>
+ <div class="insert">Precio de venta: <input type="text" name="sell" id="sell" placeholder="12.99"/> </div>
+ <div class="insert"><input type="button" name="go" id="go" value="Calcula" onclick="calc();" /> </div>
+</div>
+<div id="main">
+</div>
+<script id="jsbin-javascript">
+let pImp = 5.47;
+let gPri = 7.53;
+let pVent = 12.99;
+
+function g(id){return document.getElementById(id);}
+function calc(){
+  let i = 1;
+  let m = 100;
+  let fixed = false;
+  let tid = "";
+  
+  pImp = parseFloat(g("print").value);
+  gPri = parseFloat(g("fees").value);
+  pVent = parseFloat(g("sell").value);
+  
+  fixed = g("fixed").checked;
+
+  tid += "<table>";
+  tid += "<tr>";
+  tid += "<th>";
+  tid += "Unidades";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Precio por unidad";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Precio aproximado";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Gastos de envío aproximados";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Beneficio por unidad";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Mínimo de ventas";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Porcentaje mínimo de ventas";
+  tid += "</th>";
+  tid += "<th>";
+  tid += "Beneficio total";
+  tid += "</th>";
+  tid += "</tr>";
+
+  for(;i <= m;i++){
+    let ppu = 0;
+    let pa = 0;
+    let ge = 0;
+    let bu = 0;
+    let mv = 0;
+    let pv = 0;
+    let bt = 0;
+
+    if(fixed){
+      ppu = pImp + (gPri / i);
+    } else {
+      ppu = (pImp * i + (gPri + ((gPri - Math.trunc(gPri)) * (i - 1)))) / i;
+    }
+    
+    pa = i * ppu;
+    ge = pa - (pImp * i);
+    bu = pVent - ppu;
+    mv = Math.ceil(pa / pVent);
+    pv = mv / i * 100;
+    bt = bu * i;
+    
+    tid += "<tr>";
+    tid += "<td>";
+    tid += i;
+    tid += "</td>";
+    tid += "<td>";
+    tid += ppu.toFixed(2);
+    tid += "</td>";
+    tid += "<td>";
+    tid += pa.toFixed(2);
+    tid += "</td>";
+    tid += "<td>";
+    tid += ge.toFixed(2);
+    tid += "</td>";
+    tid += "<td>";
+    tid += bu.toFixed(2);
+    tid += "</td>";
+    tid += "<td>";
+    tid += mv.toFixed(0);
+    tid += "</td>";
+    tid += "<td>";
+    tid += pv.toFixed(2);
+    tid += "</td>";
+    tid += "<td>";
+    tid += bt.toFixed(2);
+    tid += "</td>";
+    tid += "</tr>";
+ 
+  }
+  
+  tid += "</table>";
+  
+  g("main").innerHTML = tid;
+}
+</script>
+</body>
+</html>
