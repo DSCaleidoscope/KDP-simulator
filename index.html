@@ -19,16 +19,17 @@
 <body>
 <div id="input">
  <div class="insert">Precio impresión: <input type="text" name="print" id="print" placeholder="5.47" /> </div>
- <div class="insert">Gastos envío: <input type="text" name="fees" id="fees" placeholder="7.53" /> Fijo: <input type="checkbox" id="fixed" /></div>
+ <div class="insert">Gastos envío: <input type="text" name="fees" id="fees" placeholder="0.99" /> Fijo: <input type="checkbox" id="fixed" checked="true" /></div>
  <div class="insert">Precio de venta: <input type="text" name="sell" id="sell" placeholder="12.99"/> </div>
  <div class="insert"><input type="button" name="go" id="go" value="Calcula" onclick="calc();" /> </div>
 </div>
+<div id="plot"></div>
 <div id="main">
 </div>
 <script id="text/javascript">
-let pImp = 5.47;
-let gPri = 7.53;
-let pVent = 12.99;
+  let pImp = 5.47;
+  let gPri = 7.53;
+  let pVent = 12.99;
 
 function g(id){return document.getElementById(id);}
 function calc(){
@@ -119,7 +120,6 @@ function calc(){
     tid += bt.toFixed(2);
     tid += "</td>";
     tid += "</tr>";
- 
   }
   
   tid += "</table>";
